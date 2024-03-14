@@ -1,10 +1,10 @@
 import { Table, Card, Button} from "antd";
 import Header from "../components/header/Header";
 import React,{useState} from "react"
-import PrintBill from "../components/bills/PrintBill";
 
-const BillPage = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
+const CustomerPage = () => {
+    
     
   const dataSource = [
     {
@@ -43,20 +43,11 @@ const BillPage = () => {
     <div>
       <Header />
       <div className="px-6">
-        <h1 className="text-4xl font-bold text-center mb-4">Faturalar</h1>
+        <h1 className="text-4xl font-bold text-center mb-4">Müşterilerim</h1>
         <Table dataSource={dataSource} columns={columns} bordered pagination={false}/>
-            <div className="cart-total flex justify-end mt-4">
-            <Card className="w-72">
-               
-                <Button type="primary" className="mt-4 w-full" size="large" onClick={()=>setIsModalOpen(true)}>Yazdır</Button>
-            </Card>
-            </div>
-            
-            <PrintBill isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
-          
       </div>
     </div>
   );
 };
 
-export default BillPage;
+export default CustomerPage;

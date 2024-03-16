@@ -8,36 +8,28 @@ const Categories = () => {
       </li>
 
       <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
+        <span>Yiyecek</span>
       </li>
 
       <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
+        <span>İçecek</span>
       </li>
 
 
       <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
+        <span>Meyve</span>
       </li>
 
       <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
+        <span>Sebze</span>
       </li>
 
       <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
+        <span>Kıyafet</span>
       </li>
 
       <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
-      </li>
-
-      <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
-      </li>
-
-      <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
+        <span>Elektronik</span>
       </li>
 
       <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
@@ -48,13 +40,7 @@ const Categories = () => {
         <span>Tümü</span>
       </li>
 
-      <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
-      </li>
-
-      <li className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center">
-        <span>Tümü</span>
-      </li>
+   
      
     </ul>
   );

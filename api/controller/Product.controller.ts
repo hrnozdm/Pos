@@ -39,5 +39,30 @@ class ProductController{
     }}
 
 
+    public static async getAllProduct(req:Request,res:Response){
+
+      try {
+         const products=await Product.find();
+         res.status(200).json({'message':'Ürünler bulundu',products});      
+      } catch (error) {
+         res.status(500).json(error);
+  }}
+
+  public static async getsingleProduct(req:Request,res:Response){
+
+   try {
+      const product=await Product.findById({_id:req.params.productId});
+      res.status(200).json({'message':'Ürün bulundu',product});      
+   } catch (error) {
+      res.status(500).json(error);
+}}
+
+
+
+
+
+
 }
+
+export default ProductController;
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, message } from "antd";
 import api from "../../../api/api";
 
 const Categories = () => {
@@ -20,9 +20,11 @@ const Categories = () => {
   const onFinish = async (values) => {
     try {
       const response = await api.post("/createCategory", values);
+      message.success("Kategori başarıyla eklendi");
       fetchCategories(); 
       console.log(response.data);
     } catch (error) {
+      message.error("Başarısız İşlem");
       console.log(error);
     }
   };
@@ -55,12 +57,12 @@ const Categories = () => {
         footer={false}
       >
         <Form layout="vertical" onFinish={onFinish}>
-          <Form.Item
+         <Form.Item
             name="title"
             label="Kategori Ekle"
             rules={[
               { required: true, message: "Kategori Alanı Boş Geçilemez" },
-            ]}
+            ]} 
           >
             <Input />
           </Form.Item>

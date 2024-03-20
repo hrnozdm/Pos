@@ -5,7 +5,10 @@ import router from "./routes/router";
 import cors from "cors";
 const app:Application=express();
 dotenv.config();
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    credentials: true
+}));
 connectDb();
 const port = process.env.PORT;
 app.use(express.json());

@@ -1,87 +1,42 @@
+import { useEffect, useState } from "react";
+import api from "../../../api/api";
+import ProductItem from "./ProductItem";
+import { PlusOutlined, EditOutlined } from "@ant-design/icons";
+import Add from "./Add";
 const Products = () => {
+  const [products, setproducts] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const getAllProducts = async () => {
+    try {
+      const response = await api.get("/getAllProduct");
+      console.log(response.data);
+      setproducts(response.data.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllProducts();
+  }, []);
   return (
     <div className="product-wrapper grid md:grid-cols-6 gap-4 ">
-       <div className="product-item border rounded-md hover:shadow-lg cursor-pointer select-none transition-all">
-            <div className="product-img">
-               <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/elmalardan-balmumu-bocek-ilaclari-ve-bakterileri-temizlemenin-6-yolu-6fee1ea2-3311-4a0e-87c6-bd4d46f5766a.jpg" alt="" className="h-28 object-cover w-full"/>
-            </div>
+      {products.map((product, index) => (
+        <ProductItem product={product} index={index} />
+      ))}
 
-            <div className="product-info flex flex-col p-3">
-                <span className="font-bold">Elma</span>
-                <span>12₺</span>
-            </div>
-       </div>
+      <div
+        className="product-item border hover:shadow-lg cursor-pointer transition-all select-none bg-purple-800 flex justify-center items-center hover:opacity-90"
+        onClick={()=>setIsModalOpen(true)}
+      >
+        <PlusOutlined className="text-white md:text-2xl"/>
+      </div>
+      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none bg-orange-800 flex justify-center items-center hover:opacity-90">
+        <EditOutlined className="text-white md:text-2xl" />
+      </div>
 
-       <div className="product-item border rounded-md hover:shadow-lg cursor-pointer select-none transition-all">
-            <div className="product-img">
-               <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/elmalardan-balmumu-bocek-ilaclari-ve-bakterileri-temizlemenin-6-yolu-6fee1ea2-3311-4a0e-87c6-bd4d46f5766a.jpg" alt="" className="h-28 object-cover w-full"/>
-            </div>
-
-            <div className="product-info flex flex-col p-3">
-                <span className="font-bold">Elma</span>
-                <span>12₺</span>
-            </div>
-       </div>   
-
-         <div className="product-item border rounded-md hover:shadow-lg cursor-pointer select-none transition-all">
-            <div className="product-img">
-               <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/elmalardan-balmumu-bocek-ilaclari-ve-bakterileri-temizlemenin-6-yolu-6fee1ea2-3311-4a0e-87c6-bd4d46f5766a.jpg" alt="" className="h-28 object-cover w-full"/>
-            </div>
-
-            <div className="product-info flex flex-col p-3">
-                <span className="font-bold">Elma</span>
-                <span>12₺</span>
-            </div>
-       </div> 
-
-         <div className="product-item border rounded-md hover:shadow-lg cursor-pointer select-none transition-all">
-            <div className="product-img">
-               <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/elmalardan-balmumu-bocek-ilaclari-ve-bakterileri-temizlemenin-6-yolu-6fee1ea2-3311-4a0e-87c6-bd4d46f5766a.jpg" alt="" className="h-28 object-cover w-full"/>
-            </div>
-
-            <div className="product-info flex flex-col p-3">
-                <span className="font-bold">Elma</span>
-                <span>12₺</span>
-            </div>
-       </div> 
-
-
-        <div className="product-item border rounded-md hover:shadow-lg cursor-pointer select-none transition-all">
-            <div className="product-img">
-               <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/elmalardan-balmumu-bocek-ilaclari-ve-bakterileri-temizlemenin-6-yolu-6fee1ea2-3311-4a0e-87c6-bd4d46f5766a.jpg" alt="" className="h-28 object-cover w-full"/>
-            </div>
-
-            <div className="product-info flex flex-col p-3">
-                <span className="font-bold">Elma</span>
-                <span>12₺</span>
-            </div>
-       </div> 
-
-
-        <div className="product-item border rounded-md hover:shadow-lg cursor-pointer select-none transition-all">
-            <div className="product-img">
-               <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/elmalardan-balmumu-bocek-ilaclari-ve-bakterileri-temizlemenin-6-yolu-6fee1ea2-3311-4a0e-87c6-bd4d46f5766a.jpg" alt="" className="h-28 object-cover w-full"/>
-            </div>
-
-            <div className="product-info flex flex-col p-3">
-                <span className="font-bold">Elma</span>
-                <span>12₺</span>
-            </div>
-       </div> 
-
-
-        <div className="product-item border rounded-md hover:shadow-md cursor-pointer select-none transition-all">
-            <div className="product-img">
-               <img src="https://i.lezzet.com.tr/images-xxlarge-secondary/elmalardan-balmumu-bocek-ilaclari-ve-bakterileri-temizlemenin-6-yolu-6fee1ea2-3311-4a0e-87c6-bd4d46f5766a.jpg" alt="" className="h-28 object-cover w-full"/>
-            </div>
-
-            <div className="product-info  flex flex-col p-3">
-                <span className="font-bold">Elma</span>
-                <span>12₺</span>
-            </div>
-       </div>         
+      <Add isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
     </div>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;

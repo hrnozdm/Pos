@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import {connectDb} from "./config/config";
 import router from "./routes/router";
 import cors from "cors";
+import morgan from "morgan";
 const app:Application=express();
 dotenv.config();
 app.use(cors({
@@ -11,6 +12,7 @@ app.use(cors({
 }));
 connectDb();
 const port = process.env.PORT;
+app.use(morgan("dev"));
 app.use(express.json());
 app.use('/api',router)
 app.listen(port,()=>{

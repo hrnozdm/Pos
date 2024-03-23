@@ -10,8 +10,6 @@ const Categories = () => {
   const [editingRow, setEditingRow] = useState({});
   const [form] = Form.useForm();
 
-  console.log(editingRow);
-
   const columns = [
     {
       title: "Category Title",
@@ -72,7 +70,7 @@ const Categories = () => {
       message.success("Kategori başarıyla eklendi");
       form.resetFields();
       fetchCategories();
-      console.log(response.data);
+      //console.log(response.data);
     } catch (error) {
       message.error("Başarısız İşlem");
       console.log(error);

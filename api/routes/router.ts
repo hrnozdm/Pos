@@ -29,6 +29,7 @@ router.post('/createProduct',ProductController.createProduct);
 router.put('/updateProduct',ProductController.updateProduct);
 router.get('/getAllProduct',ProductController.getAllProduct);
 router.get('/getSingleProduct/:productId',ProductController.getsingleProduct);
+router.delete('/deleteProduct',ProductController.deleteProduct);
 
 //!BillRoute
 router.post('/createBill',BillController.createBill);

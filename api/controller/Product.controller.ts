@@ -33,7 +33,7 @@ class ProductController{
 
         try {
            const deletedProduct=await Product.findByIdAndDelete({_id:req.body.productId},{new:true});
-           res.status(200).json({'message':'Ürün silme işlemi',deletedProduct});      
+           res.status(200).json({'message':'Ürün silme işlemi başarılı',deletedProduct});      
         } catch (error) {
            res.status(500).json(error);
     }}

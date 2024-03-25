@@ -30,7 +30,6 @@ class CategoryController{
     //!updateCategory
     public static async updateCategory(req:Request,res:Response){
         try {
-          
             const updatedCategory=await Category.findByIdAndUpdate({_id:req.body.categoryId},{title:req.body.title},{new:true});
             res.status(200).json({'message':'Kategori güncellendi',updatedCategory});
             

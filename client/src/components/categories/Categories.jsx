@@ -70,7 +70,7 @@ const Categories = () => {
       message.success("Kategori başarıyla eklendi");
       form.resetFields();
       fetchCategories();
-      //console.log(response.data);
+      setIsModalOpen(false);
     } catch (error) {
       message.error("Başarısız İşlem");
       console.log(error);
@@ -86,6 +86,8 @@ const Categories = () => {
       console.log(response.data);
       message.success("Kategori Düzenlendi");
       fetchCategories();
+      form.resetFields();
+      setIsModalOpen2(false);
     } catch (error) {
       message.error("İşlem Başarısız");
     }
@@ -139,7 +141,7 @@ const Categories = () => {
         onCancel={() => setIsModalOpen(false)}
         footer={false}
       >
-        <Form layout="vertical" onFinish={onFinishCategoryCreate}>
+        <Form form={form} layout="vertical" onFinish={onFinishCategoryCreate}>
           <Form.Item
             name="title"
             label="Kategori Ekle"
@@ -163,8 +165,9 @@ const Categories = () => {
         open={isModalOpen2}
         onCancel={() => setIsModalOpen2(false)}
         footer={false}
+        
       >
-        <Form onFinish={onFinishCategoryUpdate}>
+        <Form form={form} onFinish={onFinishCategoryUpdate}>
           <Table
             bordered
             dataSource={categories}

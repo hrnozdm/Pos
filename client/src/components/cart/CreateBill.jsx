@@ -1,11 +1,9 @@
 import { Button, Card, Form, Input, Modal, Select } from "antd";
 import React from "react";
-
-const onFinish=(value)=>{
-    console.log("Form verileri",value);
-}
+import { useSelector } from "react-redux";
 
 const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
+  const {total,tax} =useSelector((state)=>state.cart);
   return (
     <>
       <Modal
@@ -14,7 +12,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
         footer={false}
         onCancel={() => setIsModalOpen(false)}
       >
-        <Form layout={"vertical"} onFinish={onFinish}>
+        <Form layout={"vertical"} >
           <Form.Item
             label="Müşteri Adı"
             rules={[
@@ -52,15 +50,15 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
           <Card className="w-100">
             <div className="flex justify-between">
               <span>Ara Toplam</span>
-              <span>549₺</span>
+              <span>{total}₺</span>
             </div>
             <div className="flex justify-between my-2">
-              <span>KDV Toplam %8</span>
-              <span className="text-red-600">+43.92₺</span>
+              <span>KDV Toplam %{tax}</span>
+              <span className="text-red-600">+{(total * tax / 100)}₺</span>
             </div>
             <div className="flex justify-between">
               <b>Toplam</b>
-              <b>592.92₺</b>
+              <b>{total + (total*tax/100)}₺</b>
             </div>
             <div className="flex  justify-end">
               <Button

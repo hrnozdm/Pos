@@ -1,5 +1,6 @@
 import React from "react";
 import { Badge, Input } from "antd";
+import { useSelector } from "react-redux";
 import {
   SearchOutlined,
   HomeOutlined,
@@ -11,6 +12,7 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 const Header = () => {
+  const {cartItems}=useSelector((state)=>state.cart);
   return (
     <div className="border-b mb-6">
       <header className="py-4 px-6 flex justify-between items-center  gap-10">
@@ -33,7 +35,7 @@ const Header = () => {
               <HomeOutlined className="md:text-2xl text-xl" />
               <span className="md:text-xs text-[10px]">Ana Sayfa</span>
             </Link>
-            <Badge count={5} offset={[0,1]} className="md:flex hidden">
+            <Badge count={cartItems.length} offset={[0,1]} className="md:flex hidden">
                 <Link to={"/cart"} className="menu-link flex flex-col hover:text-[#40a9ff] transition-all">
                 <ShoppingCartOutlined className="md:text-2xl text-xl" />
                 <span className="md:text-xs text-[10px]">Sepet</span>
@@ -58,7 +60,7 @@ const Header = () => {
           
         </div>
 
-        <Badge count={5} offset={[0,1]} className="md:hidden flex">
+        <Badge count={cartItems.length} offset={[0,1]} className="md:hidden flex">
                 <Link to={"/"} className="menu-link flex flex-col hover:text-[#40a9ff] transition-all">
                 <ShoppingCartOutlined className="md:text-2xl text-2xl" />
                 <span className="md:text-xs text-[10px]">Sepet</span>

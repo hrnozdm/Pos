@@ -128,6 +128,7 @@ const CartPage = () => {
               className="mt-4 w-full"
               size="large"
               onClick={() => setIsModalOpen(true)}
+              disabled={cartItems.length == 0 ? true : false}
             >
               Sipariş Oluştur
             </Button>

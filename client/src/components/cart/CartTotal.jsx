@@ -3,7 +3,9 @@ import { useSelector,useDispatch } from "react-redux";
 import { ClearOutlined,PlusCircleOutlined,MinusCircleOutlined } from '@ant-design/icons';
 import { increase, deleteCart, decrease, deleteAllCart } from "../../redux/CartSlice";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const CartTotal = () => {
+  const navigate=useNavigate();
   const dispatch=useDispatch();
   const {cartItems,total,tax}=useSelector((state)=>state.cart);
   const [open, setOpen] = useState(false);
@@ -79,7 +81,7 @@ const CartTotal = () => {
           </div>
 
           <div className="py-4 px-2">
-            <Button type="primary" size="large" className="w-full" disabled={cartItems.length ===0 ? true : false}>Sipariş Oluştur</Button>
+            <Button type="primary" size="large" className="w-full" disabled={cartItems.length ===0 ? true : false} onClick={()=>navigate('/cart')}>Sipariş Oluştur</Button>
             <Button type="primary" size="large" className="w-full mt-2" danger icon={<ClearOutlined />} onClick={showModal} disabled={cartItems.length ===0 ? true : false}>Temizle</Button>
           </div>
 

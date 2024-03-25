@@ -3,7 +3,7 @@ import React from "react";
 
 
 
-const PrintBill = ({ isModalOpen, setIsModalOpen }) => {
+const PrintBill = ({ isModalOpen, setIsModalOpen,customer}) => {
   return (
     <>
        <Modal
@@ -45,7 +45,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen }) => {
                     <p className="font-bold text-slate-700 mt-2">
                       Veriliş Tarihi:
                     </p>
-                    <p>2022-11-21</p>
+                    <p>{customer?.createdAt?.substring(0,10)}</p>
                   </div>
                 </div>
                 <div className="text-md text-slate-500 sm:block hidden">
@@ -109,41 +109,48 @@ const PrintBill = ({ isModalOpen, setIsModalOpen }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-slate-200">
-                    <td className="py-4 sm:table-cell hidden">
-                      <img
-                        src="https://i.lezzet.com.tr/images-xxlarge-secondary/elma-nasil-yenir-221135ca-f383-474c-a4f5-ad02a45db978.jpg"
-                        alt=""
-                        className="w-12 h-12 object-cover"
-                      />
-                    </td>
-                    <td className="py-4 sm:table-cell hidden">
-                      <div className="flex flex-col">
-                        <span className="font-medium">Şalgam</span>
-                        <span className="sm:hidden inline-block text-xs">
-                          Birim Fiyatı 5₺
-                        </span>
-                      </div>
-                    </td>
-                    <td className="py-4 sm:hidden" colSpan={4}>
-                      <div className="flex flex-col">
-                        <span className="font-medium">Şalgam</span>
-                        <span className="sm:hidden inline-block text-xs">
-                          Birim Fiyatı 5₺
-                        </span>
-                      </div>
-                    </td>
-                    
-                    <td className="py-4 text-center sm:table-cell hidden">
-                      <span>5₺</span>
-                    </td>
-                    <td className="py-4 sm:text-center text-right sm:table-cell hidden">
-                      <span>1</span>
-                    </td>
-                    <td className="py-4 text-end">
-                      <span>5.00₺</span>
-                    </td>
-                  </tr>
+                  {
+                    customer?.cartItems?.map((bill)=>(
+                      <tr className="border-b border-slate-200">
+                      <td className="py-4 sm:table-cell hidden">
+                        <img
+                          src={bill.img}
+                          width={50}
+                          height={50}
+                          alt=""
+                          className="w-12 h-12 object-cover"
+                        />
+                      </td>
+                      <td className="py-4 sm:table-cell hidden">
+                        <div className="flex flex-col">
+                          <span className="font-medium">{bill.title}</span>
+                          <span className="sm:hidden inline-block text-xs">
+                            Birim Fiyatı {bill.price}₺
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-4 sm:hidden" colSpan={4}>
+                        <div className="flex flex-col">
+                          <span className="font-medium">{bill.title}</span>
+                          <span className="sm:hidden inline-block text-xs">
+                            Birim Fiyatı {bill.price}₺
+                          </span>
+                        </div>
+                      </td>
+                      
+                      <td className="py-4 text-center sm:table-cell hidden">
+                        <span>{bill.price}₺</span>
+                      </td>
+                      <td className="py-4 sm:text-center text-right sm:table-cell hidden">
+                        <span>{bill.quantity}</span>
+                      </td>
+                      <td className="py-4 text-end">
+                        <span>{Number(bill.price*bill.quantity)}</span>
+                      </td>
+                     </tr>
+                    ))
+                  }
+                 
                 </tbody>
                 <tfoot>
                   <tr>
@@ -164,7 +171,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen }) => {
                       <p className="font-normal text-slate-700">Ara Toplam</p>
                     </th>
                     <th className="text-right pt-4" scope="row">
-                      <span className="font-normal text-slate-700">61₺</span>
+                      <span className="font-normal text-slate-700">{customer.subTotal}</span>
                     </th>
                   </tr>
                   <tr>
@@ -183,7 +190,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen }) => {
                       <p className="font-normal text-slate-700">KDV</p>
                     </th>
                     <th className="text-right pt-4" scope="row">
-                      <span className="font-normal text-red-600">+4.88₺</span>
+                      <span className="font-normal text-red-600">{customer.tax}₺</span>
                     </th>
                   </tr>
                   <tr>
@@ -202,7 +209,7 @@ const PrintBill = ({ isModalOpen, setIsModalOpen }) => {
                       <p className="font-normal text-slate-700">Genel Toplam</p>
                     </th>
                     <th className="text-right pt-4" scope="row">
-                      <span className="font-normal text-slate-700">65.88₺</span>
+                      <span className="font-normal text-slate-700">{customer.totalAmount}₺</span>
                     </th>
                   </tr>
                 </tfoot>

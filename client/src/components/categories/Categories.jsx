@@ -88,6 +88,7 @@ const Categories = () => {
       fetchCategories();
       form.resetFields();
       setIsModalOpen2(false);
+      setEditingRow({});
     } catch (error) {
       message.error("İşlem Başarısız");
     }

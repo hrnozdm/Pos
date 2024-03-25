@@ -1,9 +1,29 @@
-import { Button, Card, Form, Input, Modal, Select } from "antd";
+import { Button, Card, Form, Input, Modal, Select, message } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
+import api from "../../../api/api";
 
 const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
-  const {total,tax} =useSelector((state)=>state.cart);
+  const {total,tax,cartItems} =useSelector((state)=>state.cart);
+  const [form] = Form.useForm();
+  const createBill=async (values)=>{
+    try {
+      const response=await api.post('createBill',{
+        ...values,
+        cartItems:cartItems,
+        subTotal:total,
+        tax:Number(tax*total/100),
+        totalAmount:Number(total+(tax*total/100))
+      });
+      console.log(response.data);
+      message.success("Fatura Kaydı Başarılı");
+      setIsModalOpen(false);
+      form.resetFields();
+    } catch (error) {
+      console.log(error);
+      message.error("Başarısız İşlem");
+    }
+  }
   return (
     <>
       <Modal
@@ -12,7 +32,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
         footer={false}
         onCancel={() => setIsModalOpen(false)}
       >
-        <Form layout={"vertical"} >
+        <Form layout={"vertical"} onFinish={createBill} form={form}>
           <Form.Item
             label="Müşteri Adı"
             rules={[
@@ -26,7 +46,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
           <Form.Item
             label="Tel No"
             rules={[{ required: true, message: "Telefon Numarası Giriniz" }]}
-            name={"phoneNumber"}
+            name={"customerPhoneNumber"}
           >
             <Input placeholder="Telefon Numarası Giriniz" maxLength={11}/>
           </Form.Item>
@@ -66,6 +86,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
                 className="mt-4"
                 size="middle"
                 htmlType="submit"
+                disabled={cartItems.length == 0 ? true : false}
               >
                 Sipariş Oluştur
               </Button>

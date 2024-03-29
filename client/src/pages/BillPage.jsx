@@ -81,7 +81,7 @@ const BillPage = () => {
       <Header />
       <div className="px-6">
         <h1 className="text-4xl font-bold text-center mb-4">Faturalar</h1>
-        <Table dataSource={bills} columns={columns} bordered pagination={false}/>
+        <Table dataSource={bills} columns={columns} bordered pagination={false} scroll={{x:1000,y:300}}/>
             <div className="cart-total flex justify-end mt-4">
             
             </div>

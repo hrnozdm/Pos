@@ -10,8 +10,15 @@ import {
   BarChartOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate=useNavigate();
+  const Logout =()=>{
+    if (window.confirm('Çıkış Yapmak İstediğinizden Eminmisiniz?')){
+      localStorage.removeItem('posUser');
+      navigate('/login')      
+    }
+  }
   const {cartItems}=useSelector((state)=>state.cart);
   return (
     <div className="border-b mb-6">
@@ -53,10 +60,13 @@ const Header = () => {
               <BarChartOutlined className="md:text-2xl text-xl" />
               <span className="md:text-xs text-[10px]">İstatistikler</span>
             </Link>
+            <div onClick={Logout}>
             <Link to={"/"} className="menu-link flex flex-col hover:text-[#40a9ff] transition-all">
               <LogoutOutlined className="md:text-2xl text-xl" />
               <span className="md:text-xs text-[10px]">Çıkış</span>
             </Link>
+            </div>
+           
           
         </div>
 

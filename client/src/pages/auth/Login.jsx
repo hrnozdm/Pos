@@ -1,15 +1,45 @@
-import { Button, Form, Input, Carousel,Checkbox } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Form, Input, Carousel,Checkbox, message } from "antd";
+import { Link} from "react-router-dom";
 import AuthCarousel from "./AuthCarousel";
-
+import api from "../../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate=useNavigate();
+  const onFinishLogin = async (values) => {
+    try {
+      const response = await api.post("/login", values);
+      const user = response?.data?.user;
+  
+      if (response?.status === 200) {
+        localStorage.setItem(
+          "posUser",
+          JSON.stringify({
+            username: user.username,
+            email: user.email,
+          })
+        );
+        message.success('Giriş Başarılı');
+        navigate("/");
+        
+      } 
+    } catch (error) {
+      if (error.response.status == 404){
+        message.error('Kullanıcı Bulunamadı');
+      }
+
+      if (error.response.status == 403) {
+        message.error('Hatalı Parola');
+      }
+    }
+  };
+  
   return (
     <div className="h-screen">
     <div className="flex justify-between h-full">
       <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center relative">
         <h1 className="text-center text-5xl font-bold mb-2">LOGO</h1>
-        <Form layout="vertical">
+        <Form layout="vertical" onFinish={onFinishLogin} initialValues={{remember:false}}>
           <Form.Item
             label="E-mail"
             name={"email"}
@@ -87,7 +117,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  </div>
+    </div>
   )
 }
 

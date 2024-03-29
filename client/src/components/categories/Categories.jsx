@@ -3,7 +3,7 @@ import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, Table, message } from "antd";
 import api from "../../../api/api";
 
-const Categories = () => {
+const Categories = ({ setFilteredCategory,products,setProducts }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -54,11 +54,17 @@ const Categories = () => {
     },
   ];
 
+  const filterCat = (title) => {
+    const filteredProducts = products.filter((product) => product.category === title);
+    setFilteredCategory(filteredProducts);
+  };
+
   const fetchCategories = async () => {
     try {
       const response = await api.get("/getAllCategory");
       console.log(response.data);
       setCategories(response.data.categories);
+      setFilteredCategory([]);
     } catch (error) {
       console.log(error);
     }
@@ -114,10 +120,17 @@ const Categories = () => {
 
   return (
     <ul className="categories flex md:flex-col gap-4 mb-5">
+        <li
+        className="bg-purple-700 px-6 py-8 text-white cursor-pointer transition-all text-center hover:opacity-90"
+        onClick={fetchCategories}
+      >
+        <span>Tümü</span>
+      </li>
       {categories.map((category, index) => (
         <li
           className="bg-green-700 px-6 py-8 text-white cursor-pointer transition-all hover:bg-pink-700 text-center"
           key={index}
+          onClick={()=>filterCat(category.title)}
         >
           <span>{category.title}</span>
         </li>

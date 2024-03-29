@@ -4,15 +4,15 @@ import ProductItem from "./ProductItem";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import Add from "./Add";
 import { useNavigate } from "react-router-dom";
-const Products = () => {
+const Products = ({ products, setProducts }) => {
   const navigate=useNavigate();
-  const [products, setproducts] = useState([]);
+ 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const getAllProducts = async () => {
     try {
       const response = await api.get("/getAllProduct");
       console.log(response.data);
-      setproducts(response.data.products);
+      setProducts(response.data.products);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +43,7 @@ const Products = () => {
         <EditOutlined className="text-white md:text-2xl" />
       </div>
 
-      <Add isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setproducts={setproducts} products={products}/>
+      <Add isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setproducts={setProducts} products={products}/>
     </div>
   );
 };

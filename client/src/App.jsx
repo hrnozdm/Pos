@@ -1,5 +1,5 @@
 import HomePage from "./pages/HomePage";
-import React from "react";
+import React,{useEffect} from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import CartPage from "./pages/CartPage";
 import BillPage from "./pages/BillPage";
@@ -8,6 +8,7 @@ import StatisticPage from "./pages/StatisticPage";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import ProductPage from "./pages/ProductPage";
+import  {useSelector} from "react-redux";
 export const AuthGuard = ({children})=>{
   const isLogin = localStorage.getItem("posUser");
   if (isLogin){
@@ -17,6 +18,11 @@ export const AuthGuard = ({children})=>{
   }
 }
 function App() {
+  const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
   return (
     <div>
        <BrowserRouter>

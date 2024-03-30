@@ -4,19 +4,37 @@ import ProductItem from "./ProductItem";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import Add from "./Add";
 import { useNavigate } from "react-router-dom";
-const Products = ({ products, setProducts }) => {
+const Products = ({ products, setProducts,search }) => {
   const navigate=useNavigate();
  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const getAllProducts = async () => {
     try {
-      const response = await api.get("/getAllProduct");
-      console.log(response.data);
-      setProducts(response.data.products);
+        const response = await api.get("/getAllProduct");
+        setProducts(response.data.products);      
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (!search) {
+      getAllProducts(); 
+    } else {
+      const searchedProducts = products.filter((product) => 
+        product.title.toLowerCase().includes(search.toLowerCase())
+      );
+      if (products.length > 0) {
+        const filteredAndSearchedProducts = searchedProducts.filter((product) =>
+        products.map((item) => item._id).includes(product._id)
+        );
+        setProducts(filteredAndSearchedProducts);
+      } else {
+        setProducts(searchedProducts);
+      }
+    }
+  }, [search]);
+  
 
   useEffect(() => {
     getAllProducts();

@@ -90,6 +90,10 @@ const StatisticPage = () => {
     },
   };
 
+
+  const user = JSON.parse(localStorage.getItem("posUser"));
+  
+
   return (
     <div>
       <Header />
@@ -98,7 +102,7 @@ const StatisticPage = () => {
         <div className="statistic-section">
           <h2 className="text-lg">
             Hoş Geldin
-            <span className="text-green-700 font-bold text-lg">admin</span>.
+            <span className="text-green-700 font-bold text-lg"> {user.username}</span>.
           </h2>
           <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 md:gap-10 gap-4">
             <StatisticCard

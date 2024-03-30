@@ -12,7 +12,7 @@ const ProductItem = ({product,index}) => {
   }
   return (
     <div>
-    <div className="product-item border rounded-md hover:shadow-lg cursor-pointer select-none transition-all" key={index} onClick={handleClick}>
+    <div className="product-item border rounded-md hover:shadow-lg cursor-pointer select-none transition-all" key={product._id} onClick={handleClick}>
     <div className="product-img">
       <img
         src={product.img}
